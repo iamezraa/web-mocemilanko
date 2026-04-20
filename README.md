@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🌶️ Mocemilanko - Cemilan Seru untuk Semua Mood
 
 Mocemilanko adalah website resmi brand snack yang menghadirkan berbagai pilihan rasa dengan identitas visual yang fun, colorful, dan playful.
@@ -173,3 +174,6 @@ Proprietary - Mocemilanko Brand
 **Made with ❤️ untuk para pecinta cemilan lezat** 🌶️🧀🌽
 
 Banyak Rasa, Banyak Cerita!
+=======
+# web-mocemilanko
+>>>>>>> d7785dba6ccc2827d82f543a4991b117eb911170
