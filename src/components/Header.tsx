@@ -1,9 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import WhatsAppButton, { getWhatsAppLink } from './WhatsAppButton'
+import { motion } from 'framer-motion'
 
-export default function Header() {
+interface HeaderProps {
+  cartButton?: React.ReactNode
+}
+
+export default function Header({ cartButton }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -55,10 +59,22 @@ export default function Header() {
           </a>
         </div>
 
-        <WhatsAppButton
-          text="Pesan Sekarang"
-          className="bg-gradient-to-r from-basreng-orange to-basreng-red text-white hover:shadow-xl"
-        />
+        <div className="flex items-center gap-4">
+          {cartButton}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              const element = document.getElementById('products')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            }}
+            className="bg-gradient-to-r from-basreng-orange to-basreng-red text-white px-6 py-2 rounded-full font-semibold hover:shadow-lg transition-all"
+          >
+            Pesan Sekarang
+          </motion.button>
+        </div>
       </nav>
     </header>
   )

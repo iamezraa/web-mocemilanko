@@ -9,7 +9,7 @@ interface WhatsAppButtonProps {
 
 export function getWhatsAppLink(message: string) {
   const encodedMessage = encodeURIComponent(message);
-  return `https://wa.me/628123456789?text=${encodedMessage}`;
+  return `https://wa.me/6282145661716?text=${encodedMessage}`;
 }
 
 export default function WhatsAppButton({ 

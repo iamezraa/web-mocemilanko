@@ -38,11 +38,11 @@ const products: Product[] = [
   },
   {
     id: 'mie-lidi-original',
-    name: 'Mie Lidi Original ✨',
-    emoji: '✨',
-    flavors: ['Klasik', 'Netral'],
-    description: 'Rasa original yang timeless. Asin, gurih, perfect untuk pairing dengan apapun atau dimakan doang!',
-    colorGradient: 'from-original-cream to-original-beige',
+    name: 'Mie Lidi Original 🧂',
+    emoji: '🧂',
+    flavors: ['Klasik', 'Asin'],
+    description: 'Rasa original yang timeless. Asin, gurih, perfect untuk pairing dengan apapun atau dimakan doang! Dengan sentuhan garam premium.',
+    colorGradient: 'from-original-salt-light to-original-salt',
   },
   {
     id: 'mie-lidi-bbq',
@@ -145,7 +145,7 @@ export default function ProductShowcase() {
 
                 {/* Order button */}
                 <motion.a
-                  href={`https://wa.me/628123456789?text=Halo%20Mocemilanko%2C%20saya%20mau%20pesan%20${product.name.split(' ')[0]}`}
+                  href={`https://wa.me/6282145661716?text=Halo%20Mocemilanko%2C%20saya%20mau%20pesan%20snack`}
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}

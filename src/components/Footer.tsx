@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import WhatsAppButton, { getWhatsAppLink } from './WhatsAppButton'
+import { getWhatsAppLink } from './WhatsAppButton'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -26,7 +26,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-4">
               <motion.a
-                href="https://www.instagram.com"
+                href="https://www.instagram.com/mocemilanko"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 10 }}
@@ -100,21 +100,19 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="hover:text-basreng-orange transition-colors"
                   >
-                    +62 812-345-6789
+                    ( 082145661716 )
                   </a>
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span>📧</span>
-                <span>
-                  <a href="mailto:hello@mocemilanko.com" className="hover:text-basreng-orange transition-colors">
-                    hello@mocemilanko.com
-                  </a>
+                <span className="text-gray-400">
+                  -
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span>📍</span>
-                <span>Jakarta, Indonesia</span>
+                <span>Kota Kupang, Nusa Tenggara Timur</span>
               </li>
               <li className="flex items-start gap-2">
                 <span>⏰</span>
@@ -129,10 +127,16 @@ export default function Footer() {
             <p className="text-gray-400 mb-4 text-sm">
               Jadilah yang pertama tahu tentang produk baru dan promo spesial Mocemilanko!
             </p>
-            <WhatsAppButton
-              text="📢 Ikuti Update"
-              className="w-full bg-gradient-to-r from-basreng-orange to-basreng-red text-white justify-center text-sm"
-            />
+            <motion.a
+              href="https://www.instagram.com/mocemilanko?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="block w-full text-center bg-gradient-to-r from-basreng-orange to-basreng-red text-white justify-center text-sm py-3 rounded-lg font-bold hover:shadow-lg transition-all"
+            >
+              📢 Ikuti Update
+            </motion.a>
           </div>
         </motion.div>
 

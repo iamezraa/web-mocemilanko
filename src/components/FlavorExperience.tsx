@@ -42,11 +42,11 @@ const flavors: Flavor[] = [
   },
   {
     id: 'original-salty',
-    name: 'Original Asin ✨',
-    icon: '✨',
-    description: 'Rasa klasik yang timeless. Asin, gurih, dan simple tapi sempurna. Cocok menemani segala aktivitas.',
-    colors: { primary: 'from-original-cream', secondary: 'to-original-beige' },
-    tags: ['Klasik', 'Netral', 'Pairing Terbaik'],
+    name: 'Original Asin 🧂',
+    icon: '🧂',
+    description: 'Rasa klasik yang timeless. Asin, gurih, dan simple tapi sempurna. Dengan garam premium yang memberikan rasa autentik. Cocok menemani segala aktivitas.',
+    colors: { primary: 'from-original-salt-light', secondary: 'to-original-salt' },
+    tags: ['Klasik', 'Asin', 'Rasa Asli'],
   },
   {
     id: 'bbq',
@@ -124,7 +124,7 @@ export default function FlavorExperience() {
                 </div>
 
                 <motion.a
-                  href={`https://wa.me/628123456789?text=Halo%20Mocemilanko%2C%20saya%20mau%20pesan%20snack%20dengan%20varian%20${selectedFlavor.name.split(' ')[0]}`}
+                  href={`https://wa.me/6282145661716?text=Halo%20Mocemilanko%2C%20saya%20mau%20pesan%20snack%20dengan%20varian%20${selectedFlavor.name.split(' ')[0]}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}

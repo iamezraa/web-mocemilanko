@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import WhatsAppButton from './WhatsAppButton'
 
 const floatingElements = [
   { emoji: '🌶️', delay: 0, duration: 4, x: [-20, 20, -20], y: [0, 40, 0] },
@@ -81,10 +80,19 @@ export default function Hero() {
           transition={{ delay: 0.6, duration: 0.8 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-12"
         >
-          <WhatsAppButton
-            text="🛒 Pesan Sekarang via WhatsApp"
-            className="bg-gradient-to-r from-basreng-red to-basreng-orange text-white text-lg px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl hover:scale-105"
-          />
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              const element = document.getElementById('products')
+              if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+              }
+            }}
+            className="bg-gradient-to-r from-basreng-red to-basreng-orange text-white text-lg px-8 py-4 rounded-full font-bold shadow-lg hover:shadow-2xl transition-all"
+          >
+            🛒 Pesan Sekarang
+          </motion.button>
           <motion.a
             href="#flavors"
             whileHover={{ scale: 1.05 }}

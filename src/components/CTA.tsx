@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import WhatsAppButton from './WhatsAppButton'
 
 export default function CTA() {
   return (
@@ -51,10 +50,19 @@ export default function CTA() {
               viewport={{ once: true }}
               className="flex flex-col sm:flex-row gap-4 justify-center items-center"
             >
-              <WhatsAppButton
-                text="🛒 Pesan Sekarang!"
-                className="bg-white text-basreng-orange text-lg px-8 py-4 rounded-full font-black shadow-xl hover:shadow-2xl hover:scale-105"
-              />
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => {
+                  const element = document.getElementById('products')
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                }}
+                className="bg-white text-basreng-orange text-lg px-8 py-4 rounded-full font-black shadow-xl hover:shadow-2xl transition-all"
+              >
+                🛒 Pesan Sekarang!
+              </motion.button>
 
               <motion.a
                 href="#products"

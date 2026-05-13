@@ -16,6 +16,8 @@ const config: Config = {
         'chicken-brown': '#D2691E',
         'original-cream': '#F5F1E8',
         'original-beige': '#E8DCC8',
+        'original-salt-light': '#5BA3D0',
+        'original-salt': '#3B7AC3',
         'bbq-brown': '#5C4033',
         'bbq-orange': '#FF8C42',
         'cheese-yellow': '#FFD700',
