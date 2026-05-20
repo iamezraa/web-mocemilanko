@@ -23,14 +23,20 @@ export default function ReceiptModal({
     // Format order summary for WhatsApp
     const orderSummary = items
       .map((item) => `- ${item.productName} ${item.flavor} x${item.quantity} = Rp${item.totalPrice.toLocaleString('id-ID')}`)
-      .join('%0A')
+      .join('\n')
 
-    const message = `Halo Mocemilanko! 🎉%0A%0ASaya ingin melakukan pemesanan:%0A%0AOrder ID: ${orderId}%0A%0AItems:%0A${orderSummary}%0A%0ATotal: Rp${totalPrice.toLocaleString('id-ID')}%0A%0ACustomer:%0ANama: ${checkoutData.name}%0AAlamat: ${checkoutData.address}${checkoutData.notes ? `%0ACatatan: ${checkoutData.notes}` : ''}%0A%0ATerimakasih!`
+    // Build message with proper formatting
+    const messageText = `Halo Mocemilanko! 🎉\n\nSaya ingin melakukan pemesanan:\n\nOrder ID: ${orderId}\n\nItems:\n${orderSummary}\n\nTotal: Rp${totalPrice.toLocaleString('id-ID')}\n\nCustomer:\nNama: ${checkoutData.name}\nNo. WhatsApp: ${checkoutData.whatsappNumber}\nAlamat: ${checkoutData.address}${checkoutData.notes ? `\nCatatan: ${checkoutData.notes}` : ''}\n\nTerimakasih!`
 
+    // Proper URL encoding
     const whatsappNumber = '6282145661716'
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`
+    const encodedMessage = encodeURIComponent(messageText)
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
 
+    // Open WhatsApp
     window.open(whatsappUrl, '_blank')
+    
+    // Complete checkout
     onComplete()
   }
 

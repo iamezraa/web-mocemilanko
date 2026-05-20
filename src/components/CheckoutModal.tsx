@@ -49,9 +49,22 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
       return
     }
 
+    // Validate and clean WhatsApp number
+    const cleanedNumber = formData.whatsappNumber.replace(/\D/g, '')
+    if (cleanedNumber.length < 10) {
+      alert('Nomor WhatsApp tidak valid!')
+      return
+    }
+
     // Generate order ID
     const newOrderId = generateOrderId()
     setOrderId(newOrderId)
+
+    // Update form data with cleaned number
+    setFormData((prev) => ({
+      ...prev,
+      whatsappNumber: cleanedNumber,
+    }))
 
     // Show receipt
     setShowReceipt(true)
