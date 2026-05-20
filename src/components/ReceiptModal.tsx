@@ -20,24 +20,34 @@ export default function ReceiptModal({
   const { items, totalPrice } = useCart()
 
   const handleWhatsAppCheckout = () => {
-    // Format order summary for WhatsApp
-    const orderSummary = items
-      .map((item) => `- ${item.productName} ${item.flavor} x${item.quantity} = Rp${item.totalPrice.toLocaleString('id-ID')}`)
-      .join('\n')
+    try {
+      // Format order summary for WhatsApp
+      const orderSummary = items
+        .map((item) => `- ${item.productName} ${item.flavor} x${item.quantity} = Rp${item.totalPrice.toLocaleString('id-ID')}`)
+        .join('\n')
 
-    // Build message with proper formatting
-    const messageText = `Halo Mocemilanko! 🎉\n\nSaya ingin melakukan pemesanan:\n\nOrder ID: ${orderId}\n\nItems:\n${orderSummary}\n\nTotal: Rp${totalPrice.toLocaleString('id-ID')}\n\nCustomer:\nNama: ${checkoutData.name}\nNo. WhatsApp: ${checkoutData.whatsappNumber}\nAlamat: ${checkoutData.address}${checkoutData.notes ? `\nCatatan: ${checkoutData.notes}` : ''}\n\nTerimakasih!`
+      // Build message with proper formatting
+      const messageText = `Halo Mocemilanko! 🎉\n\nSaya ingin melakukan pemesanan:\n\nOrder ID: ${orderId}\n\nItems:\n${orderSummary}\n\nTotal: Rp${totalPrice.toLocaleString('id-ID')}\n\nCustomer:\nNama: ${checkoutData.name}\nNo. WhatsApp: ${checkoutData.whatsappNumber}\nAlamat: ${checkoutData.address}${checkoutData.notes ? `\nCatatan: ${checkoutData.notes}` : ''}\n\nTerimakasih!`
 
-    // Proper URL encoding
-    const whatsappNumber = '6282145661716'
-    const encodedMessage = encodeURIComponent(messageText)
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
+      // Proper URL encoding
+      const whatsappNumber = '6282145661716'
+      const encodedMessage = encodeURIComponent(messageText)
+      const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`
 
-    // Open WhatsApp
-    window.open(whatsappUrl, '_blank')
-    
-    // Complete checkout
-    onComplete()
+      // Try to redirect - this works better than window.open() on all devices
+      if (typeof window !== 'undefined') {
+        // First, complete the order
+        onComplete()
+        
+        // Then redirect to WhatsApp
+        setTimeout(() => {
+          window.location.href = whatsappUrl
+        }, 500)
+      }
+    } catch (error) {
+      console.error('Error opening WhatsApp:', error)
+      alert('Gagal membuka WhatsApp. Silakan coba lagi.')
+    }
   }
 
   return (
