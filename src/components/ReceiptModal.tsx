@@ -50,7 +50,7 @@ export default function ReceiptModal({
       <motion.div
         initial={{ scale: 0.9, y: 20 }}
         animate={{ scale: 1, y: 0 }}
-        className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+        className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] shadow-2xl flex flex-col"
       >
         {/* Header */}
         <div className="bg-gradient-to-r from-basreng-orange to-basreng-red text-white p-8 text-center sticky top-0 z-10">
@@ -58,8 +58,8 @@ export default function ReceiptModal({
           <p className="text-white text-opacity-90 mt-2">Digital Receipt</p>
         </div>
 
-        {/* Receipt Content */}
-        <div className="p-8">
+        {/* Receipt Content - Scrollable */}
+        <div className="flex-1 overflow-y-auto p-8">
           {/* Receipt Paper Style */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -144,30 +144,30 @@ export default function ReceiptModal({
               <p className="text-xs text-gray-600 mt-1">Mohon konfirmasi pesanan via WhatsApp</p>
             </div>
           </motion.div>
-
-          {/* Action Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="flex gap-4 mt-8 pt-6 border-t-2 border-gray-200"
-          >
-            <button
-              onClick={onClose}
-              className="flex-1 bg-gray-300 text-gray-900 font-bold py-3 rounded-lg hover:bg-gray-400 transition-all"
-            >
-              Kembali
-            </button>
-            <motion.button
-              onClick={handleWhatsAppCheckout}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
-            >
-              💬 Kirim via WhatsApp
-            </motion.button>
-          </motion.div>
         </div>
+
+        {/* Action Buttons - Sticky Bottom */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="flex gap-4 p-6 border-t-2 border-gray-200 bg-white sticky bottom-0 z-20"
+        >
+          <button
+            onClick={onClose}
+            className="flex-1 bg-gray-300 text-gray-900 font-bold py-3 rounded-lg hover:bg-gray-400 transition-all"
+          >
+            Kembali
+          </button>
+          <motion.button
+            onClick={handleWhatsAppCheckout}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
+          >
+            💬 Kirim via WhatsApp
+          </motion.button>
+        </motion.div>
       </motion.div>
     </motion.div>
   )
