@@ -23,6 +23,11 @@ const config: Config = {
         'cheese-yellow': '#FFD700',
         'corn-yellow': '#FEB139',
         'corn-green': '#84CC16',
+        'fruit-orange': '#FF8C42',
+        'fruit-yellow': '#FFD700',
+        'fruit-green': '#7CB342',
+        'fruit-cream': '#F5E6D3',
+        'fruit-red': '#E8705E',
       },
       animation: {
         'float': 'float 3s ease-in-out infinite',

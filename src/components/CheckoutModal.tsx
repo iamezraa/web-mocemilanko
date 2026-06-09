@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { useCart } from '@/context/CartContext'
+import { useOrder } from '@/context/OrderContext'
+import { Order } from '@/types/order'
 import ReceiptModal from './ReceiptModal'
 
 interface CheckoutModalProps {
@@ -19,6 +21,7 @@ export interface CheckoutData {
 
 export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutModalProps) {
   const { items, totalPrice, clearCart } = useCart()
+  const { createOrder } = useOrder()
   const [formData, setFormData] = useState<CheckoutData>({
     name: '',
     whatsappNumber: '',
@@ -26,7 +29,8 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
     notes: '',
   })
   const [showReceipt, setShowReceipt] = useState(false)
-  const [orderId, setOrderId] = useState('')
+  const [savedOrder, setSavedOrder] = useState<Order | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -36,12 +40,7 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
     }))
   }
 
-  const generateOrderId = () => {
-    const timestamp = Date.now().toString().slice(-6)
-    return `MC-${timestamp}`
-  }
-
-  const handleCheckout = (e: React.FormEvent) => {
+  const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!formData.name || !formData.whatsappNumber || !formData.address) {
@@ -56,18 +55,32 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
       return
     }
 
-    // Generate order ID
-    const newOrderId = generateOrderId()
-    setOrderId(newOrderId)
+    setIsLoading(true)
+    try {
+      // Save order to database
+      const order = await createOrder(
+        {
+          name: formData.name,
+          whatsappNumber: cleanedNumber,
+          address: formData.address,
+          notes: formData.notes,
+        },
+        items,
+        totalPrice
+      )
 
-    // Update form data with cleaned number
-    setFormData((prev) => ({
-      ...prev,
-      whatsappNumber: cleanedNumber,
-    }))
-
-    // Show receipt
-    setShowReceipt(true)
+      if (order) {
+        setSavedOrder(order)
+        setShowReceipt(true)
+      } else {
+        alert('Gagal menyimpan pesanan. Silakan coba lagi.')
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      alert('Terjadi kesalahan. Silakan coba lagi.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -89,7 +102,8 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
               <h2 className="text-3xl font-black">📋 Checkout</h2>
               <button
                 onClick={onClose}
-                className="text-3xl font-bold hover:scale-110 transition-transform"
+                disabled={isLoading}
+                className="text-3xl font-bold hover:scale-110 transition-transform disabled:opacity-50"
               >
                 ✕
               </button>
@@ -137,7 +151,8 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Masukkan nama Anda"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors disabled:bg-gray-100"
                   required
                 />
               </motion.div>
@@ -156,7 +171,8 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
                   value={formData.whatsappNumber}
                   onChange={handleInputChange}
                   placeholder="Contoh: 6282145661716 (tanpa spasi/dash)"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors disabled:bg-gray-100"
                   required
                 />
               </motion.div>
@@ -174,8 +190,9 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
                   value={formData.address}
                   onChange={handleInputChange}
                   placeholder="Masukkan alamat lengkap untuk pengiriman"
+                  disabled={isLoading}
                   rows={3}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors disabled:bg-gray-100"
                   required
                 />
               </motion.div>
@@ -193,8 +210,9 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
                   value={formData.notes}
                   onChange={handleInputChange}
                   placeholder="Misal: jangan terlalu pedas, tanpa packaging, dll"
+                  disabled={isLoading}
                   rows={2}
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-basreng-orange focus:outline-none transition-colors disabled:bg-gray-100"
                 />
               </motion.div>
 
@@ -208,17 +226,25 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
                 <button
                   type="button"
                   onClick={onClose}
-                  className="flex-1 bg-gray-300 text-gray-900 font-bold py-3 rounded-lg hover:bg-gray-400 transition-all"
+                  disabled={isLoading}
+                  className="flex-1 bg-gray-300 text-gray-900 font-bold py-3 rounded-lg hover:bg-gray-400 transition-all disabled:opacity-50"
                 >
                   Batal
                 </button>
                 <motion.button
                   type="submit"
+                  disabled={isLoading}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="flex-1 bg-gradient-to-r from-basreng-orange to-basreng-red text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all"
+                  className="flex-1 bg-gradient-to-r from-basreng-orange to-basreng-red text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
                 >
-                  Lanjut ke Struk 📄
+                  {isLoading ? (
+                    <>
+                      <span className="animate-spin">⏳</span> Menyimpan...
+                    </>
+                  ) : (
+                    <>Lanjut ke Struk 📄</>
+                  )}
                 </motion.button>
               </motion.div>
             </form>
@@ -227,10 +253,9 @@ export default function CheckoutModal({ onClose, onCheckoutComplete }: CheckoutM
       </motion.div>
 
       {/* Receipt Modal */}
-      {showReceipt && (
+      {showReceipt && savedOrder && (
         <ReceiptModal
-          orderId={orderId}
-          checkoutData={formData}
+          order={savedOrder}
           onClose={() => {
             setShowReceipt(false)
             onClose()

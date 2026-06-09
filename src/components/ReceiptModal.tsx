@@ -1,33 +1,29 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useCart } from '@/context/CartContext'
-import { CheckoutData } from './CheckoutModal'
+import { Order } from '@/types/order'
+import Link from 'next/link'
 
 interface ReceiptModalProps {
-  orderId: string
-  checkoutData: CheckoutData
+  order: Order
   onClose: () => void
   onComplete: () => void
 }
 
 export default function ReceiptModal({
-  orderId,
-  checkoutData,
+  order,
   onClose,
   onComplete,
 }: ReceiptModalProps) {
-  const { items, totalPrice } = useCart()
-
   const handleWhatsAppCheckout = () => {
     try {
       // Format order summary for WhatsApp
-      const orderSummary = items
+      const orderSummary = order.items
         .map((item) => `- ${item.productName} ${item.flavor} x${item.quantity} = Rp${item.totalPrice.toLocaleString('id-ID')}`)
         .join('\n')
 
       // Build message with proper formatting
-      const messageText = `Halo Mocemilanko! 🎉\n\nSaya ingin melakukan pemesanan:\n\nOrder ID: ${orderId}\n\nItems:\n${orderSummary}\n\nTotal: Rp${totalPrice.toLocaleString('id-ID')}\n\nCustomer:\nNama: ${checkoutData.name}\nNo. WhatsApp: ${checkoutData.whatsappNumber}\nAlamat: ${checkoutData.address}${checkoutData.notes ? `\nCatatan: ${checkoutData.notes}` : ''}\n\nTerimakasih!`
+      const messageText = `Halo Mocemilanko! 🎉\n\nSaya ingin melakukan pemesanan:\n\nOrder ID: ${order.orderId}\nReceipt Number: ${order.receiptNumber}\n\nItems:\n${orderSummary}\n\nTotal: Rp${order.totalPrice.toLocaleString('id-ID')}\n\nCustomer:\nNama: ${order.customerName}\nNo. WhatsApp: ${order.whatsappNumber}\nAlamat: ${order.address}${order.notes ? `\nCatatan: ${order.notes}` : ''}\n\nTerimakasih!`
 
       // Proper URL encoding
       const whatsappNumber = '6282145661716'
@@ -88,11 +84,15 @@ export default function ReceiptModal({
             <div className="mb-6 pb-6 border-b-2 border-dashed border-gray-400">
               <div className="flex justify-between mb-2">
                 <span>Order ID:</span>
-                <span className="font-bold text-basreng-orange">{orderId}</span>
+                <span className="font-bold text-basreng-orange">{order.orderId}</span>
+              </div>
+              <div className="flex justify-between mb-2">
+                <span>Receipt #:</span>
+                <span className="font-bold text-basreng-orange">{order.receiptNumber}</span>
               </div>
               <div className="flex justify-between text-xs text-gray-600">
                 <span>Date:</span>
-                <span>{new Date().toLocaleString('id-ID')}</span>
+                <span>{new Date(order.createdAt).toLocaleString('id-ID')}</span>
               </div>
             </div>
 
@@ -100,7 +100,7 @@ export default function ReceiptModal({
             <div className="mb-6 pb-6 border-b-2 border-dashed border-gray-400">
               <p className="font-bold mb-3 text-gray-900">ITEMS:</p>
               <div className="space-y-2">
-                {items.map((item) => (
+                {order.items.map((item) => (
                   <div key={`${item.productId}-${item.flavor}`}>
                     <div className="flex justify-between">
                       <span>{item.productName}</span>
@@ -119,7 +119,7 @@ export default function ReceiptModal({
             <div className="mb-6 pb-6 border-b-2 border-dashed border-gray-400">
               <div className="flex justify-between font-bold text-lg text-gray-900">
                 <span>TOTAL:</span>
-                <span className="text-basreng-orange">Rp{totalPrice.toLocaleString('id-ID')}</span>
+                <span className="text-basreng-orange">Rp{order.totalPrice.toLocaleString('id-ID')}</span>
               </div>
             </div>
 
@@ -129,20 +129,20 @@ export default function ReceiptModal({
               <div className="space-y-1 text-xs">
                 <div className="flex justify-between">
                   <span>Nama:</span>
-                  <span>{checkoutData.name}</span>
+                  <span>{order.customerName}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>WhatsApp:</span>
-                  <span>{checkoutData.whatsappNumber}</span>
+                  <span>{order.whatsappNumber}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Alamat:</span>
-                  <span className="text-right max-w-xs">{checkoutData.address}</span>
+                  <span className="text-right max-w-xs">{order.address}</span>
                 </div>
-                {checkoutData.notes && (
+                {order.notes && (
                   <div className="flex justify-between">
                     <span>Catatan:</span>
-                    <span className="text-right max-w-xs">{checkoutData.notes}</span>
+                    <span className="text-right max-w-xs">{order.notes}</span>
                   </div>
                 )}
               </div>
@@ -152,6 +152,7 @@ export default function ReceiptModal({
             <div className="text-center pt-6 border-t-2 border-dashed border-gray-400">
               <p className="text-xs text-gray-600">Terima kasih telah berbelanja!</p>
               <p className="text-xs text-gray-600 mt-1">Mohon konfirmasi pesanan via WhatsApp</p>
+              <p className="text-xs text-gray-600 mt-2">Status: <span className="font-bold text-basreng-orange">{order.status}</span></p>
             </div>
           </motion.div>
         </div>
@@ -161,22 +162,24 @@ export default function ReceiptModal({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex gap-4 p-6 border-t-2 border-gray-200 bg-white sticky bottom-0 z-20"
+          className="flex flex-col gap-3 p-6 border-t-2 border-gray-200 bg-white sticky bottom-0 z-20"
         >
-          <button
-            onClick={onClose}
-            className="flex-1 bg-gray-300 text-gray-900 font-bold py-3 rounded-lg hover:bg-gray-400 transition-all"
-          >
-            Kembali
-          </button>
           <motion.button
             onClick={handleWhatsAppCheckout}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="flex-1 bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
+            className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
           >
             💬 Kirim via WhatsApp
           </motion.button>
+          <div className="flex gap-3">
+            <button
+              onClick={onClose}
+              className="flex-1 bg-gray-300 text-gray-900 font-bold py-2 rounded-lg hover:bg-gray-400 transition-all"
+            >
+              Tutup
+            </button>
+          </div>
         </motion.div>
       </motion.div>
     </motion.div>

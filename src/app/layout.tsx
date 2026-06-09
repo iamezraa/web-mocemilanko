@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { CartProvider } from '@/context/CartContext'
+import { OrderProvider } from '@/context/OrderContext'
+import { AdminProvider } from '@/context/AdminContext'
 
 export const metadata: Metadata = {
   title: 'Mocemilanko - Cemilan Rasa Asyik 🌶️🧀',
@@ -25,9 +27,13 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className="bg-gradient-to-br from-orange-50 via-yellow-50 to-green-50">
-        <CartProvider>
-          {children}
-        </CartProvider>
+        <AdminProvider>
+          <CartProvider>
+            <OrderProvider>
+              {children}
+            </OrderProvider>
+          </CartProvider>
+        </AdminProvider>
       </body>
     </html>
   )

@@ -1,0 +1,171 @@
+[
+  {
+    "id": "atyth852y",
+    "orderId": "MC-008048",
+    "receiptNumber": "MC2606065867",
+    "customerName": "Jusuf Ezra",
+    "whatsappNumber": "081398545294",
+    "address": "Jln. Pelita, Oesapa Km. 10",
+    "notes": "",
+    "items": [
+      {
+        "productId": "basreng",
+        "productName": "Basreng 🍟",
+        "flavor": "Pedas",
+        "quantity": 3,
+        "price": 5000,
+        "totalPrice": 15000
+      }
+    ],
+    "totalPrice": 15000,
+    "status": "Pending",
+    "createdAt": "2026-06-06T06:56:48.048Z",
+    "updatedAt": "2026-06-06T06:56:48.048Z"
+  },
+  {
+    "id": "z5okhx9fj",
+    "orderId": "MC-157487",
+    "receiptNumber": "MC2606069593",
+    "customerName": "Jusuf Ezra",
+    "whatsappNumber": "081398545294",
+    "address": "Jln. Pelita, Oesapa Km. 10",
+    "notes": "",
+    "items": [
+      {
+        "productId": "mie-lidi",
+        "productName": "Mie Lidi 🍜",
+        "flavor": "Barbeque",
+        "quantity": 2,
+        "price": 2000,
+        "totalPrice": 4000
+      },
+      {
+        "productId": "basreng",
+        "productName": "Basreng 🍟",
+        "flavor": "Pedas",
+        "quantity": 3,
+        "price": 5000,
+        "totalPrice": 15000
+      }
+    ],
+    "totalPrice": 19000,
+    "status": "Pending",
+    "createdAt": "2026-06-06T06:59:17.488Z",
+    "updatedAt": "2026-06-06T06:59:17.488Z"
+  },
+  {
+    "id": "tinvomc4e",
+    "orderId": "MC-643051",
+    "receiptNumber": "MC2606090635",
+    "customerName": "Jusuf Ezra",
+    "whatsappNumber": "081398545294",
+    "address": "Jln. Pelita, Oesapa Km. 10",
+    "notes": "",
+    "items": [
+      {
+        "productId": "mix-buah-kering",
+        "productName": "Mix Buah Kering 🍌",
+        "flavor": "Mix",
+        "quantity": 1,
+        "price": 10000,
+        "totalPrice": 10000
+      }
+    ],
+    "totalPrice": 10000,
+    "status": "Pending",
+    "createdAt": "2026-06-09T08:44:03.051Z",
+    "updatedAt": "2026-06-09T08:44:03.051Z"
+  },
+  {
+    "id": "4m1v3vwp4",
+    "orderId": "MC-666414",
+    "receiptNumber": "MC2606096405",
+    "customerName": "Jusuf Ezra",
+    "whatsappNumber": "081398545294",
+    "address": "Jln. Pelita, Oesapa Km. 10",
+    "notes": "",
+    "items": [
+      {
+        "productId": "mix-buah-kering",
+        "productName": "Mix Buah Kering 🍌",
+        "flavor": "Mix",
+        "quantity": 1,
+        "price": 10000,
+        "totalPrice": 10000
+      }
+    ],
+    "totalPrice": 10000,
+    "status": "Pending",
+    "createdAt": "2026-06-09T08:44:26.414Z",
+    "updatedAt": "2026-06-09T08:44:26.414Z"
+  },
+  {
+    "id": "vr8ehvziz",
+    "orderId": "MC-813578",
+    "receiptNumber": "MC2606099324",
+    "customerName": "Jusuf Ezra",
+    "whatsappNumber": "081398545294",
+    "address": "Jln. Pelita, Oesapa Km. 10",
+    "notes": "",
+    "items": [
+      {
+        "productId": "basreng",
+        "productName": "Basreng ♨️",
+        "flavor": "Pedas",
+        "quantity": 1,
+        "price": 5000,
+        "totalPrice": 5000
+      }
+    ],
+    "totalPrice": 5000,
+    "status": "Pending",
+    "createdAt": "2026-06-09T08:46:53.578Z",
+    "updatedAt": "2026-06-09T08:46:53.578Z"
+  },
+  {
+    "id": "dmv5hu3du",
+    "orderId": "MC-013747",
+    "receiptNumber": "MC2606097688",
+    "customerName": "Jusuf Ezra",
+    "whatsappNumber": "081398545294",
+    "address": "Jln. Pelita, Oesapa Km. 10",
+    "notes": "",
+    "items": [
+      {
+        "productId": "basreng",
+        "productName": "Basreng ♨️",
+        "flavor": "Pedas",
+        "quantity": 1,
+        "price": 5000,
+        "totalPrice": 5000
+      }
+    ],
+    "totalPrice": 5000,
+    "status": "Pending",
+    "createdAt": "2026-06-09T08:50:13.747Z",
+    "updatedAt": "2026-06-09T08:50:13.747Z"
+  },
+  {
+    "id": "aczt7qh01",
+    "orderId": "MC-036328",
+    "receiptNumber": "MC2606098296",
+    "customerName": "Jusuf Ezra",
+    "whatsappNumber": "081398545294",
+    "address": "Jln. Pelita, Oesapa Km. 10",
+    "notes": "",
+    "items": [
+      {
+        "productId": "basreng",
+        "productName": "Basreng ♨️",
+        "flavor": "Pedas",
+        "quantity": 1,
+        "price": 5000,
+        "totalPrice": 5000
+      }
+    ],
+    "totalPrice": 5000,
+    "status": "Pending",
+    "createdAt": "2026-06-09T08:50:36.329Z",
+    "updatedAt": "2026-06-09T08:50:36.329Z"
+  }
+]

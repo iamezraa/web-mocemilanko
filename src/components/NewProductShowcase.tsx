@@ -88,13 +88,22 @@ const flavorThemes: Record<string, FlavorTheme> = {
     description: 'Perpaduan rasa jagung bakar manis gurih yang unik dan nikmat. Kesegaran jagung dalam setiap gigitan.',
     decorativeEmoji: '🌽',
   },
+  'Mix': {
+    gradient: 'from-orange-500 via-yellow-400 to-lime-400',
+    glowColor: 'from-orange-400 to-yellow-300',
+    shadowColor: 'shadow-orange-400/50',
+    accentColor: 'ring-orange-400',
+    buttonBgGradient: 'from-orange-400 to-yellow-400',
+    description: 'Perpaduan lezat buah kering yang renyah. Manis alami, beragam rasa, dan menyegarkan di setiap gigitan!',
+    decorativeEmoji: '🍎🍌🍐🍊🍋🍍',
+  },
 }
 
     const products: Product[] = [
       {
         id: 'basreng',
-        name: 'Basreng 🍟',
-        emoji: '🍟',
+        name: 'Basreng ♨️',
+        emoji: '♨️',
         description: 'Bola goreng meatball yang super renyah dan pedas menggigit. Cemilan sempurna untuk menemani hari Anda!',
         flavors: [{ name: 'Pedas', emoji: '🌶️' }],
         price: 5000,
@@ -116,6 +125,15 @@ const flavorThemes: Record<string, FlavorTheme> = {
         price: 2000,
         colorGradient: 'from-cheese-yellow to-corn-green',
       },
+      {
+        id: 'mix-buah-kering',
+        name: 'Mix Buah Kering 🍌',
+        emoji: '🍌',
+        description: 'Perpaduan lezat buah dan akar yang dikeringkan. Terdiri dari ubi jalar, apel, salak, nangka, pisang, dan bahan musiman lainnya. Manis alami, renyah, dan menyegarkan!',
+        flavors: [{ name: 'Mix', emoji: '😋' }],
+        price: 10000,
+        colorGradient: 'from-orange-500 via-yellow-400 to-lime-400',
+      },
     ]
 
     interface ProductCardState {
@@ -128,6 +146,7 @@ const flavorThemes: Record<string, FlavorTheme> = {
       const [cardState, setCardState] = useState<Record<string, ProductCardState>>({
         basreng: { selectedFlavor: 'Pedas', quantity: 1 },
         'mie-lidi': { selectedFlavor: 'Balado', quantity: 1 },
+        'mix-buah-kering': { selectedFlavor: 'Mix', quantity: 1 },
       })
       const [addedMessage, setAddedMessage] = useState<string | null>(null)
       const [sectionInView, setSectionInView] = useState(false)
@@ -449,11 +468,13 @@ const flavorThemes: Record<string, FlavorTheme> = {
         'from-amber-900 via-orange-700 to-orange-600': 'linear-gradient(135deg, #78350F, #B45309, #EA580C)',
         'from-yellow-500 via-yellow-400 to-amber-400': 'linear-gradient(135deg, #EAB308, #FACC15, #FBBF24)',
         'from-yellow-500 via-green-400 to-emerald-500': 'linear-gradient(135deg, #EAB308, #4ADE80, #10B981)',
+        'from-orange-500 via-yellow-400 to-lime-400': 'linear-gradient(135deg, #F97316, #FACC15, #84CC16)',
         'from-red-500 to-red-400': 'linear-gradient(135deg, #EF4444, #F87171)',
         'from-yellow-400 to-amber-400': 'linear-gradient(135deg, #FACC15, #FBBF24)',
         'from-sky-300 to-blue-300': 'linear-gradient(135deg, #87CEEB, #93C5FD)',
         'from-orange-500 to-amber-400': 'linear-gradient(135deg, #F97316, #FBBF24)',
         'from-yellow-400 to-green-400': 'linear-gradient(135deg, #FACC15, #4ADE80)',
+        'from-orange-400 to-yellow-300': 'linear-gradient(135deg, #FB923C, #FCD34D)',
       }
 
       for (const [key, value] of Object.entries(gradients)) {

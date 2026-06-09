@@ -72,6 +72,14 @@ const flavors: Flavor[] = [
     colors: { primary: 'from-corn-yellow', secondary: 'to-corn-green' },
     tags: ['Manis', 'Lembut', 'Refreshing'],
   },
+  {
+    id: 'mixed-dried-fruits',
+    name: 'Mix Buah Kering 🍎',
+    icon: '🍎',
+    description: 'Perpaduan buah-buahan kering pilihan dengan rasa manis alami dan tekstur renyah yang menyegarkan.',
+    colors: { primary: 'from-orange-500', secondary: 'to-lime-400' },
+    tags: ['Healthy Snack', 'Natural Sweetness', 'Fresh Choice'],
+  },
 ]
 
 export default function FlavorExperience() {
