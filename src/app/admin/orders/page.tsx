@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useOrder } from '@/context/OrderContext'
@@ -39,16 +39,6 @@ export default function AdminOrdersPage() {
       setHasLoadedOnce(true)
     }
   }, [isAuthenticated, hasLoadedOnce, fetchOrders])
-
-  // Handle filter changes without causing refetch on mount
-  const applyFilters = useCallback(() => {
-    const params: any = {}
-    if (searchTerm.trim()) params.searchTerm = searchTerm
-    if (statusFilter !== 'All') params.status = statusFilter
-    if (startDate) params.startDate = startDate
-    if (endDate) params.endDate = endDate
-    // This would call the API if implemented, for now it filters client-side
-  }, [searchTerm, statusFilter, startDate, endDate])
 
   const handleSearch = (term: string) => {
     setSearchTerm(term)
