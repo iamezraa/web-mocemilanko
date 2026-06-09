@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Order } from '@/types/order'
-import Link from 'next/link'
+// import Link from 'next/link'
 
 interface ReceiptModalProps {
   order: Order
